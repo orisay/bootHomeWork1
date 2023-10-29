@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>라이크 라이온 학교 시스템</title>
+</head>
+
+<body>
+	<h1>라이크라이온 1기 A반</h1>
+		<table border="1">
+			<thead>
+				<tr>
+					<th colspan="2" style="background-color: cyan;" width="100%" height="100%">
+						성적표
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<tr>
+					<td>이름</td>
+					<td>{{list.name}}</td>
+				</tr>
+				<tr>
+					<td>국어 점수</td>
+					<td>{{list.kor}}</td>
+				</tr>
+				<tr>
+					<td>영어 점수</td>
+					<td>{{list.eng}}</td>
+				</tr>
+				<tr>
+					<td>수학 점수</td>
+					<td>{{list.math}}</td>
+				</tr>
+				<tr>
+					<td>총 점수</td>
+					<td>{{list.total}}</td>
+				</tr>
+				<tr>
+					<td>평균</td>
+					<td>{{list.avg}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/score/write">학생 성적 입력하기</a>
+		<a href="/">메인가기</a>
+</body>
+
+</html>

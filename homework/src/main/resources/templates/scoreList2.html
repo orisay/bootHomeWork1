@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+
+</script>
+
+<body>
+
+	<table border="1">
+		<tr>
+			<th>이름</th>
+			<th>국어</th>
+			<th>영어</th>
+			<th>수학</th>
+			<th>총점수</th>
+			<th>평균</th>
+		</tr>
+		{{#studentList}}
+		<tr>
+		<td><a href="/score/view/{{name}}">{{name}}</a></td>
+		<td>{{kor}}</td>
+		<td>{{eng}}</td>
+		<td>{{math}}</td>
+		<td>{{total}}</td>
+		<td>{{avg}}</td>
+		</tr>
+		{{/studentList}}
+	</table>
+</body>
+
+</html>

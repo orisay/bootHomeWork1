@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<!--코딩 작성 시 문제점
+1.blur로 포커스 이동시 경고창을 띄움으로서 UX향상을 노렸습니다
+-> 경고창이 무한으로 떠서 문제가 생겼습니다. 
+해결하기 위해서 이벤트를 지우고 다시 부여하고
+ 프리이벤트디폴트 사용했지만 이유는 모르겠으나 반복창이 무한으로 뜨는 문제가 생겼습니다.
+ 임시방편으로 setTimeout으로 넘겼습니다. -->
+<head>
+	<meta charset="UTF-8">
+	<title>라이크 라이온 학교 시스템</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<h1>학생 성적 입력</h1>
+	<form action="#" id="writeSocre">
+		<table border="1">
+			<thead>
+				<tr>
+					<th colspan="2" style="background-color: cyan;" width="100%" height="100%">
+						학생 성적 입력란
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" id="name" name="name" placeholder="이름을 입력해주세요."></td>
+				</tr>
+				<tr>
+					<td>국어 점수</td>
+					<td><input type="text" id="kor" name="kor" placeholder="국어 점수 입력란"></td>
+				</tr>
+				<tr>
+					<td>영어 점수</td>
+					<td><input type="text" id="eng" name="eng" placeholder="영어 점수 입력란"></td>
+				</tr>
+				<tr>
+					<td>수학 점수</td>
+					<td><input type="text" id="math" name="math" placeholder="수학 점수 입력란"></td>
+				</tr>
+
+
+			</tbody>
+		</table>
+		<td><button onclick="resetForm">초기화</button></td>
+		<td><button id="formBtn">입력 완료</button></td>
+	</form>
+	<a href="/">메인가기</a>
+</body>
+
+</html>
+<script>
+	$(document).ready(function () {
+
+		let warningDisplayed = false;
+
+		function resetForm() {
+			$("#name").val("");
+			$("#kor").val("");
+			$("#eng").val("");
+			$("#math").val("");
+		}
+
+
+
+		function isKorean(string) {
+			const koreanPattern = /^[가-힣]*$/
+			const nameValue = string.value;
+
+			if (!koreanPattern.test(nameValue)) {
+				showMesg("한국어만 입력해주세요.");
+			}
+		}
+
+		function isNumber(number) {
+			const numberPattern = /^\d+$/;
+			const numberValue = number.value;
+
+			if (!numberPattern.test(numberValue)) {
+				showMesg("숫자만 입력해주세요.");
+			}
+		}
+
+		function showMesg(message) {
+			if (!warningDisplayed) {
+				alert(message);
+				warningDisplayed = true; //중복 경고창 비허용
+			}
+		}
+		function reViewAlert() {
+			warningDisplayed = false;
+		}
+
+		function isLimitScore(number) {
+			const LIMIT_SCORE = 100;
+
+			if (number <= LIMIT_SCORE) {
+				alert("점수 다시 확인 부탁드립니다.");
+			} else {
+				return true;
+			}
+		}
+		
+		$("#name").on("blur", function () {
+			isKorean(this);
+			setTimeout(reViewAlert, 300);
+		});
+
+
+		$("#kor, #eng, #math").on("blur", function () {
+			isNumber(this);
+			setTimeout(reViewAlert, 500);
+		});
+
+		const btn = $("#formBtn");
+		btn.click(function () {
+			if (isLimitScore) {
+				$("#writeSocre").prop("method", "post");
+				$("#writeSocre").prop("action", "/score/save");
+				$("#writeSocre").submit;
+			}
+		})
+	})
+</script>
